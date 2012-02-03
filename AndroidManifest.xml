@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 		
-		<!-- Widget Provider -->
+		<!-- Widget Provider 
 		<receiver android:name=".Widget.WidgetProvider">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -25,6 +25,6 @@
 				android:name="android.appwidget.provider"
 				android:resource="@xml/widget"
 				/>		
-		</receiver>
+		</receiver> -->
     </application>
 </manifest>

@@ -1,7 +1,18 @@
 package tw.edu.ncu.weather;
 
-import tw.edu.ncu.weather.util.*;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +26,10 @@ import android.widget.Toast;
 public class NCUweatherActivity extends Activity {
 	private TextView data;
 	private Button refresh, getWeb;
-	private String[] results;
 	private WebView web;
-
+	private HttpPost httprequest;
+	private List<NameValuePair> SendData;
+	private String HttpResponseText = "", uri = "http://jerry54010.webuda.com/get_data.php";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,22 +46,9 @@ public class NCUweatherActivity extends Activity {
         data.setText("");
         refresh.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				results = fetchData();
-
-				if(isGetData(results)){
-					String print = 
-				    	"本日日期: "	+ results[0] 			+ "\n"+
-						"現在時間:"	+ results[1] 			+ "\n"+
-						"氣溫: "		+ results[2] + "℃"		+ "\n"+
-						"溼度: "		+ results[3] + "%"		+ "\n"+
-						"風向: " 	+ results[4] + "°"		+ "\n"+
-						"風速: " 	+ results[5] + "m/s"	+ "\n"+
-						"氣壓: " 	+ results[6] + "hPa"	+ "\n"+
-						"降雨: " 	+ results[6] + "mm/hr"	+ "\n";
-					data.setText(print);
-				}else{
-					data.setText("null");
-				}
+				//get data from web
+				Thread http = new Thread(new httpcon());
+				http.start();
 			}
         });
         
@@ -59,49 +58,65 @@ public class NCUweatherActivity extends Activity {
 			}
         });
     }
-    
-    private String[] fetchData(){
-    	Parser weather = new Parser();
-        String[] finaldata = {""};
-    	try{
-			String[] toFind = weather.setFilter();
-			String pageData = weather.fetchURLData(new URL("http://pblap.atm.ncu.edu.tw/ncucwb/indexReal.asp"));
-			
-			if (pageData.equals("failed")){
-				finaldata[0] = "failed";
-				Log.e("jerry54010", "get data false");
-			}else{
-				finaldata = weather.anlysisData(toFind, pageData);
-				Log.e("jerry54010", "get data: true");
-			}
-    	}catch (Exception e){
-    		e.printStackTrace();
-    	}
-		return finaldata;
-    }
-    
-    private boolean isGetData(String[] data){
-    	if(data[0].equals("failed")){
-    		return false;
-    	}else{
-    		return true;
-    	}
-    }
-    
-    public void showData(String[] results){
-		System.out.println("本日日期: "+ results[0]);
-		System.out.println("現在時間:"+ results[1]);
-		System.out.println("氣溫: "+ results[2] + "℃");
-		System.out.println("溼度: "+ results[3] + "%");
-		System.out.println("風向: " + results[4] + "°");
-		System.out.println("風速: " + results[5] + "m/s");
-		System.out.println("氣壓: " + results[6] + "hPa");
-		System.out.println("降雨: " + results[7] + "mm/hr");
-	}
-    
+
     protected void onStop(){
     	super.onStop();
     	web.clearCache(true);
-    	Toast.makeText(this, "Cleared cache and Leave", Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this, "Cleared cache and Leave", Toast.LENGTH_SHORT).show();
     }
+    
+    // put http connection to thread
+	private class httpcon implements Runnable {
+		public void run() {
+			try {
+				SendData = new ArrayList<NameValuePair>();
+				SendData.add(new BasicNameValuePair("user_agent", "Android"));
+				httprequest = new HttpPost(uri);
+				
+				httprequest.setEntity(new UrlEncodedFormEntity(SendData, HTTP.UTF_8));
+				HttpResponse httpResponse = new DefaultHttpClient().execute(httprequest);
+
+				if (httpResponse.getStatusLine().getStatusCode() == 200) {
+					HttpResponseText = EntityUtils.toString(httpResponse
+							.getEntity());
+				}
+			} catch (Exception e) {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(NCUweatherActivity.this, "沒有連線",Toast.LENGTH_LONG).show();
+						data.setText("沒有連線");
+					}
+				});
+			}
+			
+			runOnUiThread(new Runnable() {
+				public void run() {
+					if (HttpResponseText != null) {
+						String test="";
+						try {
+							//JSONObject jsonObj = new JSONObject(HttpResponseText);
+							//jsonObj.getJSONObject("responseData").opt("translatedText");
+							JSONArray result = new JSONArray(HttpResponseText);
+							//取出陣列內所有物件
+							for(int i = 0;i < result.length(); i++)
+							{
+								//取出JSON物件
+								JSONObject stock_data = result.getJSONObject(i);
+								//取得物件內資料
+								test += "Title:"+stock_data.getString("Title")+"\n";
+								test += "Data:"+stock_data.getString("Data")+"\n";
+								test += "PP:"+stock_data.getString("PP")+"\n";
+							}
+						} catch (JSONException e) {
+							Toast.makeText(NCUweatherActivity.this, e.toString(),Toast.LENGTH_SHORT).show();
+							data.setText("沒有連線");
+						}
+						data.setText(test);
+					}
+					HttpResponseText = null;
+					SendData = null;
+				}
+			});
+		}
+	}
 }
