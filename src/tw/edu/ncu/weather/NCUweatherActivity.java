@@ -94,6 +94,9 @@ public class NCUweatherActivity extends Activity {
 					if (HttpResponseText != null) {
 						String test="";
 						try {
+							//bugggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+							//cannot to json
+							
 							//JSONObject jsonObj = new JSONObject(HttpResponseText);
 							//jsonObj.getJSONObject("responseData").opt("translatedText");
 							JSONArray result = new JSONArray(HttpResponseText);
