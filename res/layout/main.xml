@@ -36,7 +36,7 @@
 		
 		<TextView 
 	    	android:id="@+id/noti"
-	    	android:text="---------------------\n請點擊更新鍵更新資料"
+	    	android:text="---------------------\n請點擊更新鍵更新資料 (也可以在桌面使用Widget)"
 	    	android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
 	    	/>
