@@ -13,6 +13,7 @@
 	    	android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
+			android:gravity="left"
 	    	>
 			<Button 
 				android:id="@+id/refresh"
@@ -35,11 +36,11 @@
 		</LinearLayout>
 		
 		<TextView 
-	    	android:id="@+id/noti"
-	    	android:text="---------------------\n請點擊更新鍵更新資料 (也可以在桌面使用Widget)"
-	    	android:layout_width="wrap_content" 
-	    	android:layout_height="wrap_content"
-	    	/>
+		    	android:id="@+id/noti"
+		    	android:text="(你可以在桌面使用Widget呵呵)\n(點擊Widget左方可以進入主程式)\n(點擊Widget右方可以更新Widget)"
+		    	android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+				/>
 	    <TextView 
 	    	android:id="@+id/result"
 	    	android:textAppearance="?android:attr/textAppearanceLarge" 

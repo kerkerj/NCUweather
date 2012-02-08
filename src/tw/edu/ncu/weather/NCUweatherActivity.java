@@ -79,7 +79,7 @@ public class NCUweatherActivity extends Activity {
 			public void onClick(View v) {
 				new AlertDialog.Builder(NCUweatherActivity.this)
 				.setTitle("中大山寨即時氣象")
-				.setMessage("我是阿囧XD\n是阿囧, 不是阿囧XD喔 \n有問題請來信:\nkerkerjerry@gmail.com")
+				.setMessage("我是阿囧XD\n是阿囧, 不是阿囧XD喔 \n有問題請來信:\nkerkerjerry@gmail.com\n\n點擊Widget左方可以進入主程式\n點擊Widget右方可以更新Widget\n手機解鎖時也會更新Widget")
 				.setPositiveButton("確定",
 						new DialogInterface.OnClickListener() {
 							@Override
