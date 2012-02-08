@@ -4,17 +4,39 @@
   	android:layout_width="fill_parent" 
 	android:layout_height="72dip"
 	android:id="@+id/deskLayout" 
-	android:gravity="center" 
-	android:padding="5dip" 
-	android:background="#FFFFFF" 
+	android:gravity="left" 
+	android:padding="2dip" 
+	android:background="#EEEEEE" 
 	android:orientation="horizontal" 
 	android:baselineAligned="true"
   	>
-    <TextView 
-    	android:id="@+id/textView1"
-    	android:text="TextView" 
-    	android:textColor="#000000"
-    	android:layout_height="wrap_content" 
-    	android:layout_width="wrap_content" 
-    	/>
+  	<LinearLayout
+	  	android:layout_width="36dip" 
+		android:layout_height="72dip"
+		android:id="@+id/to_main" 
+		android:gravity="left"
+		android:padding="0dip" 
+		android:background="#FF0066" 
+		android:orientation="horizontal" 
+		android:baselineAligned="true"
+  		/>
+  	<LinearLayout
+	  	android:layout_width="114dip" 
+		android:layout_height="72dip"
+		android:id="@+id/refresh" 
+		android:gravity="left"
+		android:padding="3dip" 
+		android:background="#2B00FF" 
+		android:orientation="horizontal" 
+		android:baselineAligned="true"
+  		>
+	    <TextView 
+	    	android:gravity="top"
+	    	android:text="點擊此處以更新widget"
+	    	android:id="@+id/text"
+	    	android:textColor="#000000"
+	    	android:layout_height="wrap_content" 
+	    	android:layout_width="wrap_content" 
+	    	/>
+    </LinearLayout>
 </LinearLayout>

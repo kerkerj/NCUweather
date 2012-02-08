@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="tw.edu.ncu.weather"
-      android:versionCode="1"
-      android:versionName="1.0">
+      android:versionCode="1" android:versionName="2.0">
     <uses-sdk android:minSdkVersion="3" />
 	
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".NCUweatherActivity"
@@ -16,15 +16,30 @@
             </intent-filter>
         </activity>
 		
-		<!-- Widget Provider 
-		<receiver android:name=".Widget.WidgetProvider">
+		<!-- Widget Provider  -->
+		<receiver android:name=".widget.WidgetProvider">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+				<action android:name="tw.edu.ncu.weather.UPDATE_WIDGET"></action>
 			</intent-filter>
 			<meta-data 
 				android:name="android.appwidget.provider"
 				android:resource="@xml/widget"
 				/>		
-		</receiver> -->
+		</receiver>
+		
+		<!-- Update Service -->
+        <service android:name=".UpdateService">
+            <intent-filter>
+                <action android:name="tw.edu.ncu.weather.UPDATE_SERVICE" />
+            </intent-filter>
+        </service>
+        
+        <!-- Broadcast -->
+        <receiver android:name=".UpdateReceiver" >
+			<intent-filter android:priority="99">
+				<action android:name="android.intent.action.USER_PRESENT" />
+			</intent-filter>
+		</receiver>
     </application>
 </manifest>
