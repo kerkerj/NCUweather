@@ -12,7 +12,9 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,7 +28,7 @@ import android.widget.Toast;
 
 public class NCUweatherActivity extends Activity {
 	private TextView data;
-	private Button refresh, getWeb;
+	private Button refresh, getWeb, about;
 	private WebView web;
 	private HttpPost httprequest;
 	private List<NameValuePair> SendData;
@@ -41,6 +43,7 @@ public class NCUweatherActivity extends Activity {
         
         refresh = (Button) findViewById(R.id.refresh);
         getWeb = (Button) findViewById(R.id.getWeb);
+        about = (Button) findViewById(R.id.about); 
         web = (WebView) findViewById(R.id.web);
         web.getSettings().setDefaultTextEncodingName("Big5");
         data = (TextView) findViewById(R.id.result);
@@ -69,6 +72,23 @@ public class NCUweatherActivity extends Activity {
 					web.setVisibility(8); //GONE 
 					webflag = 0;
 				} 
+			}
+        });
+        
+        about.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				new AlertDialog.Builder(NCUweatherActivity.this)
+				.setTitle("中大山寨即時氣象")
+				.setMessage("我是阿囧XD\n是阿囧, 不是阿囧XD喔 \n有問題請來信:\nkerkerjerry@gmail.com")
+				.setPositiveButton("確定",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								
+							}
+						}).show();
 			}
         });
     }

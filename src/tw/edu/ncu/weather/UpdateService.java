@@ -44,10 +44,10 @@ public class UpdateService extends Service{
 		projectWidget = new ComponentName(this, WidgetProvider.class);
 		
 		if (haveInternet() == true) {
-			Toast.makeText(this, "開始擷取資料", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "Updating", Toast.LENGTH_SHORT).show();
 			updateWidgetViews();
 		} else {
-			Toast.makeText(this, "沒有網路連線",Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "沒有網路連線",Toast.LENGTH_SHORT).show();
 		}
 		this.stopSelf();
 	}

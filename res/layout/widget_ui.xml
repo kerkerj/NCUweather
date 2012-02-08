@@ -6,7 +6,7 @@
 	android:id="@+id/deskLayout" 
 	android:gravity="left" 
 	android:padding="2dip" 
-	android:background="#EEEEEE" 
+	 
 	android:orientation="horizontal" 
 	android:baselineAligned="true"
   	>
@@ -16,25 +16,36 @@
 		android:id="@+id/to_main" 
 		android:gravity="left"
 		android:padding="0dip" 
-		android:background="#FF0066" 
+		android:background="#90000000" 
 		android:orientation="horizontal" 
 		android:baselineAligned="true"
-  		/>
+  		>
+  		<TextView 
+	    	android:gravity="top"
+	    	android:paddingLeft="10dip"
+	    	android:text="中\n大\n山\n寨\n"
+	    	android:textSize="14dip"
+	    	android:textColor="#FFFFFF"
+	    	android:layout_height="wrap_content" 
+	    	android:layout_width="wrap_content" 
+	    	/>
+	</LinearLayout>
   	<LinearLayout
 	  	android:layout_width="114dip" 
 		android:layout_height="72dip"
 		android:id="@+id/refresh" 
 		android:gravity="left"
 		android:padding="3dip" 
-		android:background="#2B00FF" 
+		android:background="#50000000" 
 		android:orientation="horizontal" 
 		android:baselineAligned="true"
   		>
 	    <TextView 
 	    	android:gravity="top"
-	    	android:text="點擊此處以更新widget"
+	    	android:text="點擊文字以更新widget"
 	    	android:id="@+id/text"
-	    	android:textColor="#000000"
+	    	android:textSize="16dip"
+	    	android:textColor="#FFFFFF"
 	    	android:layout_height="wrap_content" 
 	    	android:layout_width="wrap_content" 
 	    	/>
